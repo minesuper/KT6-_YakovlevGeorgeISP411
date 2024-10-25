@@ -1,0 +1,56 @@
+﻿<Page x:Class="PetShop.Pages.ProductsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PetShop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1200"
+      Title="ProductsPage">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="ProductsListView" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Margin="10 0">
+                            <TextBlock Text="{Binding ProductType.Name}" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{Binding ProductDescription}"></TextBlock>
+                            <TextBlock Text="{Binding Manufacturers.Name, StringFormat=Производитель: {0}}"></TextBlock>
+                            <TextBlock Text="{Binding ProductCost, StringFormat=Цена: {0}}"></TextBlock>
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Run Text="{Binding ProductQuantityInStock, StringFormat=На складе {0} }"></Run>
+                            <Run Text="{Binding Units.Name}"></Run>
+                        </TextBlock>
+                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                            <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click"
+                                    Width="200" Height="40" Margin="10"></Button>
+                            <Button x:Name="RemoveButton" Content="Удалить" Click="RemoveButton_Click"
+                                    Width="200" Height="40"></Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="AddProductButton" Grid.Row="2" HorizontalAlignment="Right"
+                VerticalAlignment="Center" Margin="10" Width="200" Height="40"
+                Content="Добавить продукт" Click="AddProductButton_Click"></Button>
+        <Button x:Name="BackButton" Grid.Row="2" HorizontalAlignment="Left"
+                VerticalAlignment="Center" Margin="10" Width="200" Height="40"
+                Content="Назад" Click="BackButton_Click"></Button>
+    </Grid>
+</Page>
