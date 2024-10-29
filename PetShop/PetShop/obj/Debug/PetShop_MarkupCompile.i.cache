@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\comcuru\Desktop\test\PetShop\PetShop\obj\Debug\
+C:\Users\comcuru\Desktop\KT6-_YakovlevGeorgeISP411\PetShop\PetShop\obj\Debug\
 PetShop
 none
 false
 DEBUG;TRACE
-C:\Users\comcuru\Desktop\test\PetShop\PetShop\App.xaml
-3-1553104009
+C:\Users\comcuru\Desktop\KT6-_YakovlevGeorgeISP411\PetShop\PetShop\App.xaml
+51463350280
 2-1556844510
-25-222901113
-18-1181837803
-MainWindow.xaml;Pages\AuthPage.xaml;Pages\ProductsPage.xaml;
+28-419510673
+18-1445452767
+MainWindow.xaml;Pages\AddEditPage.xaml;Pages\AuthPage.xaml;Pages\GuestPage.xaml;Pages\ProductsPage.xaml;
 
-False
+True
 

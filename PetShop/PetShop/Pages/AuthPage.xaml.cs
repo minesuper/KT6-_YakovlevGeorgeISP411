@@ -23,6 +23,8 @@ namespace PetShop.Pages
         public AuthPage()
         {
             InitializeComponent();
+            LoginTextBox.Text = "pixil59@gmail.com"; //УБРАТЬ
+            PasswordBox.Password = "2L6KZG"; //УБРАТЬ
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -47,8 +49,20 @@ namespace PetShop.Pages
                 }
                 if (Model.TradeEntities.GetContext().User.Where(d => d.UserLogin == login && d.UserPassword == password).Any())
                 {
-                    Classes.Navigation.ActiveFrame.Navigate(new Pages.ProductsPage(Model.TradeEntities.GetContext().User
-                        .Where(d => d.UserLogin == login && d.UserPassword == password).FirstOrDefault()));
+                    var user = Model.TradeEntities.GetContext().User
+                        .Where(d => d.UserLogin == login && d.UserPassword == password).FirstOrDefault();
+                    switch (user.Role.RoleName)
+                    {
+                        case "Администратор":
+                            Classes.Navigation.ActiveFrame.Navigate(new Pages.ProductsPage(user));
+                            break;
+                        case "Клиент":
+                            Classes.Navigation.ActiveFrame.Navigate(new Pages.GuestPage(user));
+                            break;
+                        case "Менеджер":
+                            Classes.Navigation.ActiveFrame.Navigate(new Pages.GuestPage(user));
+                            break;
+                    }
                 }
                 else
                 {
@@ -64,7 +78,7 @@ namespace PetShop.Pages
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)
         {
-            Classes.Navigation.ActiveFrame.Navigate(new Pages.ProductsPage(null));
+            Classes.Navigation.ActiveFrame.Navigate(new Pages.GuestPage(null));
         }
     }
 }

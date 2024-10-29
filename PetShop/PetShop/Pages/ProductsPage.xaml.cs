@@ -28,15 +28,15 @@ namespace PetShop.Pages
         }
         private void OnStart(Model.User user)
         {
-            if (user == null)
-            {
-                AddProductButton.Visibility = Visibility.Hidden;
-            }
             ProductsListView.ItemsSource = Model.TradeEntities.GetContext().Product.ToList();
+            if (user != null)
+            {
+                FioTextBlock.Text = $"{user.UserSurname} {user.UserName} {user.UserPatronymic}";
+            }
         }
         private void AddProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Classes.Navigation.ActiveFrame.Navigate(new Pages.AddEditPage(null));
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -49,12 +49,12 @@ namespace PetShop.Pages
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Classes.Navigation.ActiveFrame.Navigate(new Pages.AddEditPage((sender as Button).DataContext as Model.Product));
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

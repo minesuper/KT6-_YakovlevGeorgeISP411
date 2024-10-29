@@ -25,6 +25,7 @@ namespace PetShop
             InitializeComponent();
             Classes.Navigation.ActiveFrame = MainFrame;
             Classes.Navigation.ActiveFrame.Navigate(new Pages.AuthPage());
+            //Classes.ImgToByte.ConvertImages();
         }
     }
 }

@@ -14,21 +14,33 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
-
+        <TextBlock Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Margin="10" FontSize="12" x:Name="FioTextBlock"></TextBlock>
         <ListView x:Name="ProductsListView" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="10">
+                    <Grid Margin="10" Width="1100">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="600"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0">
+                            <Image.Source>
+                                <Binding Path="ProductPhoto">
+                                    <Binding.TargetNullValue>
+                                        <BitmapImage UriSource="/Resources/placeholder.png">
+                                            
+                                        </BitmapImage>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
                         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                                     Margin="10 0">
                             <TextBlock Text="{Binding ProductType.Name}" FontWeight="Bold"></TextBlock>
-                            <TextBlock Text="{Binding ProductDescription}"></TextBlock>
+                            <TextBlock Text="{Binding ProductDescription}" TextWrapping="Wrap" Height="40"></TextBlock>
                             <TextBlock Text="{Binding Manufacturers.Name, StringFormat=Производитель: {0}}"></TextBlock>
                             <TextBlock Text="{Binding ProductCost, StringFormat=Цена: {0}}"></TextBlock>
                         </StackPanel>
@@ -36,7 +48,7 @@
                             <Run Text="{Binding ProductQuantityInStock, StringFormat=На складе {0} }"></Run>
                             <Run Text="{Binding Units.Name}"></Run>
                         </TextBlock>
-                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button x:Name="EditButton" Content="Редактировать" Click="EditButton_Click"
                                     Width="200" Height="40" Margin="10"></Button>
                             <Button x:Name="RemoveButton" Content="Удалить" Click="RemoveButton_Click"
