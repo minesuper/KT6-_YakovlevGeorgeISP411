@@ -12,7 +12,7 @@ namespace PetShop.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class TradeEntities : DbContext
     {
         private static TradeEntities _context { get; set; }

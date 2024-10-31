@@ -25,11 +25,11 @@ namespace PetShop.Model
         public int ProductTypeId { get; set; }
         public int ProductUnitId { get; set; }
         public decimal ProductCost { get; set; }
-        public int ProductMaxDiscountAmount { get; set; }
-        public int ProductManufacturerId { get; set; }
+        public Nullable<int> ProductMaxDiscountAmount { get; set; }
+        public Nullable<int> ProductManufacturerId { get; set; }
         public int ProductSupplierId { get; set; }
         public int ProductCategoryId { get; set; }
-        public int ProductCurrentSale { get; set; }
+        public Nullable<int> ProductCurrentSale { get; set; }
         public int ProductQuantityInStock { get; set; }
         public string ProductDescription { get; set; }
         public string ProductPhotoName { get; set; }

@@ -20,6 +20,7 @@ namespace PetShop.Pages
     /// </summary>
     public partial class GuestPage : Page
     {
+        Model.User currentUser { get; set; }
         public GuestPage(Model.User user)
         {
             InitializeComponent();
@@ -27,19 +28,65 @@ namespace PetShop.Pages
         }
         private void OnStart(Model.User user)
         {
+            currentUser = user;
             ProductsListView.ItemsSource = Model.TradeEntities.GetContext().Product.ToList();
-            if (user != null)
+            var FactoriesList = Model.TradeEntities.GetContext().Manufacturers.ToList();
+            FactoriesList.Insert(0, new Model.Manufacturers() { Name = "Все производители" });
+            FactoryComboBox.ItemsSource = FactoriesList;
+            FactoryComboBox.SelectedIndex = 0;
+            if (currentUser != null)
             {
-                FioTextBlock.Text = $"{user.UserSurname} {user.UserName} {user.UserPatronymic}";
+                FioTextBlock.Text = $"{currentUser.UserSurname} {currentUser.UserName} {currentUser.UserPatronymic}";
             }
         }
-
+        private void OnUpdate()
+        {
+            string SearchText = SearchTextBox.Text.ToLower();
+            var products = Model.TradeEntities.GetContext().Product.ToList();
+            int FullCount = products.Count();
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                products = products.Where(d => d.ProductType.Name.ToLower().Contains(SearchText)
+                || d.Suppliers.Name.ToLower().Contains(SearchText)
+                || d.ProductDescription.ToLower().Contains(SearchText)
+                || d.ProductCategory.Name.ToLower().Contains(SearchText)
+                ).ToList();
+            }
+            if (FactoryComboBox.SelectedIndex != 0)
+            {
+                products = products.Where(d => d.ProductManufacturerId == FactoryComboBox.SelectedIndex).ToList();
+            }
+            if ((bool)OrderUp.IsChecked)
+            {
+                products = products.OrderBy(d => d.ProductCost).ToList();
+            }
+            if ((bool)OrderDown.IsChecked)
+            {
+                products = products.OrderByDescending(d => d.ProductCost).ToList();
+            }
+            ProductsListView.ItemsSource = products;
+            DisplayCountTextBlock.Text = $"Количество выведенных товаров {products.Count()}/{FullCount}";
+        }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Classes.Navigation.ActiveFrame.CanGoBack)
-            {
-                Classes.Navigation.ActiveFrame.GoBack();
-            }
+            Classes.Navigation.ActiveFrame.RemoveBackEntry();
+            Classes.Navigation.ActiveFrame.Navigate(new Pages.AuthPage());
+        }
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            OnUpdate();
+        }
+        private void OrderUp_Checked(object sender, RoutedEventArgs e)
+        {
+            OnUpdate();
+        }
+        private void OrderDown_Checked(object sender, RoutedEventArgs e)
+        {
+            OnUpdate();
+        }
+        private void FactoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            OnUpdate();
         }
     }
 }

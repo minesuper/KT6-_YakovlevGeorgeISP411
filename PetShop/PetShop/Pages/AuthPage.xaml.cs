@@ -25,6 +25,7 @@ namespace PetShop.Pages
             InitializeComponent();
             LoginTextBox.Text = "pixil59@gmail.com"; //УБРАТЬ
             PasswordBox.Password = "2L6KZG"; //УБРАТЬ
+            //CAPTCHA, GrayBG for missing products, image in add and edit pages
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

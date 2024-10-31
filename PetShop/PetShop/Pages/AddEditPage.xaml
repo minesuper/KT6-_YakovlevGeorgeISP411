@@ -70,10 +70,21 @@
                      HorizontalAlignment="Left" Margin="10 0"></TextBox>
             <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2"
                      Width="180" Height="100" VerticalAlignment="Center"
-                     HorizontalAlignment="Left" Margin="10 0" TextWrapping="Wrap"></TextBox>
+                     HorizontalAlignment="Left" Margin="10 0" TextWrapping="Wrap"
+                     VerticalContentAlignment="Top"></TextBox>
             <Image Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Width="140" Height="100"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Source="/Resources/placeholder.png" x:Name="ImageElement" Margin="10"></Image>
+                   x:Name="ImageElement" Margin="10">
+                <Image.Source>
+                    <Binding Path="ProductPhoto">
+                        <Binding.TargetNullValue>
+                            <BitmapImage UriSource="/Resources/placeholder.png">
+
+                            </BitmapImage>
+                        </Binding.TargetNullValue>
+                    </Binding>
+                </Image.Source>
+            </Image>
         </Grid>
         <Button x:Name="SaveChangesButton" Grid.Row="1" HorizontalAlignment="Right"
                 VerticalAlignment="Center" Margin="10" Width="200" Height="40"
