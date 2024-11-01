@@ -13,6 +13,8 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -23,16 +25,40 @@
                HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"></Label>
         <Label Content="Пароль:" Grid.Column="0" Grid.Row="1"
                HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"></Label>
+        <Label Content="Каптча:" Grid.Column="0" Grid.Row="3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="16"
+               Visibility="Collapsed" x:Name="CaptchaLabel"></Label>
+        <Image VerticalAlignment="Center" HorizontalAlignment="Center"
+               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"
+               Visibility="Collapsed" x:Name="CaptchaImage527K"
+               Source="/Resources/Captcha_527K.png"></Image>
+        <Image VerticalAlignment="Center" HorizontalAlignment="Center"
+               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"
+               Visibility="Collapsed" x:Name="CaptchaImageD3OL"
+               Source="/Resources/Captcha_D3OL.png"></Image>
+        <Image VerticalAlignment="Center" HorizontalAlignment="Center"
+               Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10"
+               Visibility="Collapsed" x:Name="CaptchaImageG7pt"
+               Source="/Resources/Captcha_G7pt.png"></Image>
+        <Button x:Name="RegenerateCaptcha" Grid.Row="2" Grid.Column="1"
+                VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10"
+                Height="40" Width="40" FontSize="10" Click="RegenerateCaptcha_Click"
+                Visibility="Collapsed">
+            <TextBlock TextWrapping="Wrap" Text="Другая каптча"></TextBlock>
+        </Button>
         <TextBox x:Name="LoginTextBox" Grid.Column="1" Grid.Row="0"
                  HorizontalAlignment="Left" VerticalAlignment="Center"
                  Width="240" Height="40" Margin="10"></TextBox>
         <PasswordBox x:Name="PasswordBox" Grid.Column="1" Grid.Row="1"
                  HorizontalAlignment="Left" VerticalAlignment="Center"
                  Width="240" Height="40" Margin="10"></PasswordBox>
-        <Button Content="Войти" Grid.Row="2" Grid.Column="1"
+        <TextBox x:Name="CaptchaTextBox" Grid.Column="1" Grid.Row="3"
+                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Width="240" Height="40" Margin="10" Visibility="Collapsed"></TextBox>
+        <Button Content="Войти" Grid.Row="4" Grid.Column="1"
                 Height="40" Width="200" Margin="10"
                 x:Name="LoginButton" Click="LoginButton_Click"></Button>
-        <Button Content="Войти как гость" Grid.Row="2" Grid.Column="0"
+        <Button Content="Войти как гость" Grid.Row="4" Grid.Column="0"
                 Height="40" Width="200" Margin="10"
                 x:Name="GuestButton" Click="GuestButton_Click"></Button>
     </Grid>

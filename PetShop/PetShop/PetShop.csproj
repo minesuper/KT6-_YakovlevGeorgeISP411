@@ -221,6 +221,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Captcha_527K.png" />
+    <Resource Include="Resources\Captcha_D3OL.png" />
+    <Resource Include="Resources\Captcha_G7pt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -42,6 +43,8 @@ namespace PetShop.Pages
             }
             else
             {
+                IdLabel.Visibility = Visibility.Visible;
+                IdTextBox.Visibility = Visibility.Visible;
                 newProduct = selectedProduct;
                 IsAdding = false;
                 IdTextBox.Text = newProduct.ProductId.ToString();
@@ -52,11 +55,8 @@ namespace PetShop.Pages
                 SupplierTextBox.Text = newProduct.Suppliers.Name;
                 PriceTextBox.Text = newProduct.ProductCost.ToString();
                 DescriptionTextBox.Text = newProduct.ProductDescription;
-                if (newProduct.ProductPhoto != null)
-                {
-                    //ImageElement.Source = new BitmapImage(); FIX IMAGE
-                }
             }
+            DataContext = newProduct;
         }
 
         private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
@@ -159,7 +159,6 @@ namespace PetShop.Pages
                 newProduct.ProductUnitId = Model.TradeEntities.GetContext().Units.Where(d => d.Name == Unit).FirstOrDefault().Id;
                 newProduct.ProductSupplierId = Model.TradeEntities.GetContext().Suppliers.Where(d => d.Name == Supplier).FirstOrDefault().Id;
                 newProduct.ProductCost = Decimal.Parse(Price);
-                //IMAGE
                 newProduct.ProductDescription = Description;
                 if (IsAdding)
                 {
@@ -186,6 +185,39 @@ namespace PetShop.Pages
             {
                 Classes.Navigation.ActiveFrame.GoBack();
             }
+        }
+
+        private void ImageElement_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string ImagePath = GetPath();
+            if (!string.IsNullOrEmpty(ImagePath))
+            {
+                BitmapImage image = new BitmapImage(new Uri(ImagePath));
+                if (image.PixelHeight > 200 || image.PixelWidth > 300)
+                {
+                    MessageBox.Show("Картинка не подходит по размерам (300x200)", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                newProduct.ProductPhotoName = ImagePath.Split('\\').Last();
+                newProduct.ProductPhoto = File.ReadAllBytes(ImagePath);
+                ImageElement.Source = image;
+            }
+        }
+        private string GetPath()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Выберите картинку";
+            if (dialog.ShowDialog() == true)
+            {
+                string path = dialog.FileName;
+                string filetype = path.Split('.').Last().Trim();
+                if (filetype == "png" || filetype == "jpeg" || filetype == "jpg")
+                {
+                    return path;
+                }
+            }
+            MessageBox.Show("Картинка не выбрана", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            return string.Empty;
         }
     }
 }

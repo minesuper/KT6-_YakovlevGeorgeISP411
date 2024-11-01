@@ -74,7 +74,7 @@
                      VerticalContentAlignment="Top"></TextBox>
             <Image Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Width="140" Height="100"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                   x:Name="ImageElement" Margin="10">
+                   x:Name="ImageElement" Margin="10" MouseDown="ImageElement_MouseDown">
                 <Image.Source>
                     <Binding Path="ProductPhoto">
                         <Binding.TargetNullValue>

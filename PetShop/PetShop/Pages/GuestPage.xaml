@@ -64,6 +64,15 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ProductQuantityInStock}" Value="0">
+                            <Setter Property="Background" Value="Gray"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
         <Button x:Name="BackButton" Grid.Row="2" HorizontalAlignment="Left"
                 VerticalAlignment="Center" Margin="10" Width="200" Height="40"
